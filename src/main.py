@@ -352,6 +352,10 @@ async def transcribe_audio_file_api(audio_file_path: str, bucket_name: str):
         except Exception:
             pass  # Ignore cleanup errors
 
+# Lambda handler (untuk AWS Lambda)
+from mangum import Mangum
+handler = Mangum(app)
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
