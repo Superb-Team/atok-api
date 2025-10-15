@@ -1,0 +1,18 @@
+[project]
+name = "atok-endpoint"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "amazon-transcribe>=0.6.4",
+    "dotenv>=0.9.9",
+    "fastapi>=0.119.0",
+    "langchain-aws>=0.2.35",
+    "langchain-core>=0.3.79",
+    "pydantic>=2.12.2",
+    "python-multipart>=0.0.20",
+    "scipy>=1.16.2",
+    "soundfile>=0.13.1",
+    "uvicorn>=0.37.0",
+]
