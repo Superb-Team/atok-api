@@ -116,7 +116,7 @@ async def transcribe_audio_file(audio_file_path: str, bucket_name: str):
             await asyncio.sleep(5)
         
         if job_status == 'COMPLETED':
-            print(f"\n✅ Transcription completed successfully!\n")
+            print(f"\nTranscription completed successfully!\n")
             
             # Get the transcription results
             transcript_uri = status['TranscriptionJob']['Transcript']['TranscriptFileUri']
@@ -134,18 +134,18 @@ async def transcribe_audio_file(audio_file_path: str, bucket_name: str):
             # Get detected language codes
             if 'language_codes' in transcript_data['results']:
                 detected_languages = transcript_data['results']['language_codes']
-                print(f"\n🌍 Detected Languages:")
+                print(f"\nDetected Languages:")
                 for lang in detected_languages:
                     print(f"   - {lang['language_code']} (confidence: {lang.get('duration_in_seconds', 'N/A')}s)")
             
             # Print full transcript
             if 'transcripts' in transcript_data['results']:
                 full_transcript = transcript_data['results']['transcripts'][0]['transcript']
-                print(f"\n📝 Full Transcript:")
+                print(f"\nFull Transcript:")
                 print(f"   {full_transcript}")
             
             # Print detailed items with language codes
-            print(f"\n📋 Detailed Transcript with Language Detection:")
+            print(f"\nDetailed Transcript with Language Detection:")
             if 'items' in transcript_data['results']:
                 current_lang = None
                 line = ""
@@ -182,10 +182,10 @@ async def transcribe_audio_file(audio_file_path: str, bucket_name: str):
             output_file = "transcription_results.json"
             with open(output_file, 'w', encoding='utf-8') as f:
                 json.dump(transcript_data, f, indent=2, ensure_ascii=False)
-            print(f"\n💾 Full results saved to: {output_file}")
+            print(f"\nFull results saved to: {output_file}")
             
         else:
-            print(f"\n❌ Transcription failed!")
+            print(f"\nTranscription failed!")
             if 'FailureReason' in status['TranscriptionJob']:
                 print(f"Reason: {status['TranscriptionJob']['FailureReason']}")
     
@@ -195,19 +195,19 @@ async def transcribe_audio_file(audio_file_path: str, bucket_name: str):
         try:
             # Delete the uploaded audio file
             s3_client.delete_object(Bucket=bucket_name, Key=s3_key)
-            print(f"   ✅ Deleted uploaded audio: s3://{bucket_name}/{s3_key}")
+            print(f"   Deleted uploaded audio: s3://{bucket_name}/{s3_key}")
             
             # Note: Transcription output will remain in S3 for your reference
-            print(f"   ℹ️  Transcription output kept in: s3://{bucket_name}/transcribe/output/{timestamp}/")
+            print(f"   transcription output kept in: s3://{bucket_name}/transcribe/output/{timestamp}/")
         except Exception as e:
-            print(f"   ⚠️  Warning: Cleanup failed: {e}")
+            print(f"    Warning: Cleanup failed: {e}")
         
         # Delete the transcription job
         try:
             transcribe_client.delete_transcription_job(TranscriptionJobName=job_name)
-            print(f"   ✅ Deleted transcription job: {job_name}")
+            print(f"   Deleted transcription job: {job_name}")
         except Exception as e:
-            print(f"   ⚠️  Warning: Could not delete job: {e}")
+            print(f"   Warning: Could not delete job: {e}")
 
 
 async def main():
@@ -220,7 +220,7 @@ async def main():
     bucket_name = os.getenv('S3_BUCKET_NAME')
     
     if not bucket_name:
-        print("❌ Error: S3_BUCKET_NAME environment variable is not set!")
+        print("Error: S3_BUCKET_NAME environment variable is not set!")
         print("\nPlease set it using:")
         print("  export S3_BUCKET_NAME='your-bucket-name'  # Linux/macOS")
         print("  set S3_BUCKET_NAME=your-bucket-name       # Windows CMD")
@@ -229,14 +229,14 @@ async def main():
     
     # Check if file exists
     if not os.path.exists(audio_file):
-        print(f"❌ Error: Audio file '{audio_file}' not found!")
+        print(f"Error: Audio file '{audio_file}' not found!")
         print("Please make sure the audio file exists in the data directory.")
         return
     
     try:
         await transcribe_audio_file(audio_file, bucket_name)
     except Exception as e:
-        print(f"\n❌ Error during transcription: {str(e)}")
+        print(f"\nError during transcription: {str(e)}")
         import traceback
         traceback.print_exc()
         raise
