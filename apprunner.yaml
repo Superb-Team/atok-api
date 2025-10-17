@@ -1,0 +1,11 @@
+version: 1.0
+runtime: PYTHON_3
+build:
+  dockerfile: ./Dockerfile
+  context: ./
+run:
+  runtime-version: "3.13"
+  start-command: "uvicorn src.main:app --host 0.0.0.0 --port 8000"
+  env:
+    - name: PORT
+      value: "8000"
