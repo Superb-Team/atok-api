@@ -36,6 +36,7 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+database/
 
 # PyInstaller
 #   Usually these files are written by a python script from a template
@@ -159,7 +160,7 @@ activemq-data/
 *.sage.py
 
 # Environments
-.env
+
 .envrc
 .venv
 env/
@@ -225,3 +226,17 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+test_opensearch_simple.py
+test_opensearch_collection.py
+test_full_workflow.py
+test_api_with_user_id.py
+START_HERE.md
+RINGKASAN_PERUBAHAN.md
+QUICK_REFERENCE.md
+OPENSEARCH_API_GUIDE.md
+CURL_EXAMPLES.md
+CHANGELOG_OPENSEARCH.md
+TEST_TRANSCRIBE_ENHANCE.md
+test_transcribe_enhance_mp3.py
+.env
+generate_test_a
