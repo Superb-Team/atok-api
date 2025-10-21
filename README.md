@@ -1,7 +1,5 @@
 # ATOK AI Notetaker API
 
-API for audio transcription, text enhancement, and vector search powered by OpenSearch.
-
 ## Features
 
 1. **Audio Transcription** – Transcribe audio files using Amazon Transcribe.
